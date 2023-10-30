@@ -20,6 +20,18 @@ sudo ufw allow ssh
 sudo ufw allow http
 sudo ufw enable
 
+# Disable root login
+sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+
+# Create a non-root user with sudo privileges
+sudo adduser --disabled-password --gecos "" username
+sudo usermod -aG sudo username
+
+# Enable automatic security updates
+sudo apt-get install unattended-upgrades -y
+sudo dpkg-reconfigure -plow unattended-upgrades
+
 # Start Docker service
 sudo systemctl start docker
 
