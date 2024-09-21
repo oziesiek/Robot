@@ -30,7 +30,8 @@ read -p "How many times do you want to ping each URL? " ping_count
 
 # Calculate total time for execution
 total_time=$((url_count * ping_count * interval))
-echo "Total execution time will be approximately $total_time seconds."
+total_minutes=$((total_time / 60))
+echo "Total execution time will be approximately $total_time seconds ($total_minutes minutes)."
 
 # Ping each URL for the specified number of times
 for url in "${urls[@]}"
