@@ -19,4 +19,4 @@ The Site Pinger script is a simple yet powerful tool designed to help you monito
 1. Make the script executable:
    chmod +x Site Pinger.sh
 2. Runt the script
-   ./url_pinger.sh
+   ./Site Pinger.sh
