@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Function to output colored text
+color_output() {
+    case $1 in
+        2*) echo -e "\e[32m$1\e[0m" ;;  # Green for 2xx
+        3*) echo -e "\e[33m$1\e[0m" ;;  # Yellow for 3xx
+        4*) echo -e "\e[31m$1\e[0m" ;;  # Red for 4xx
+        5*) echo -e "\e[31m$1\e[0m" ;;  # Red for 5xx
+        *) echo "$1" ;;                 # Default (no color)
+    esac
+}
+
 # Get the number of URLs from the user
 read -p "How many URLs do you want to ping? " url_count
 urls=()
@@ -27,7 +38,13 @@ do
     for (( j=1; j<=ping_count; j++ ))
     do
         echo "Pinging $url (Attempt #$j)..."
-        curl -s -o /dev/null -w "HTTP Response Code: %{http_code}\n" "$url"
+        
+        # Perform a detailed curl request to simulate a real user
+        response_code=$(curl -s -o /dev/null -w "%{http_code}" --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.160 Safari/537.36" --location "$url")
+
+        # Output the colored response code
+        color_output "$response_code"
+
         sleep "$interval"
     done
 done
