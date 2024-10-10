@@ -117,7 +117,7 @@ main() {
     printf "[Peer]\n"
     printf "PublicKey = %s\n" "$PUB_SERVER"
     printf "AllowedIPs = 0.0.0.0/0\n"
-    printf "Endpoint = SERVER_PUBLIC_IP:12345\n"
+    printf "Endpoint = $SERVER_PUBLIC_IP:12345\n"
     printf "PersistentKeepalive = 25\n"
     printf "\033[0m" # Reset text color
 }
