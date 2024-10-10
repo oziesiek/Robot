@@ -5,6 +5,7 @@
 
 # Prompt user for the workstation's public IP
 read -rp "Please enter the Workstation's Public IP: " WORKSTATION_PUBLIC_IP
+read -rp "Please enter the Server's Public IP: " SERVER_PUBLIC_IP
 
 # Define global variables for the script
 PRIV_SERVER=""
@@ -16,16 +17,25 @@ INTERFACE=""
 # Function to configure SSH settings
 configure_ssh() {
     printf "Configuring SSH...\n"
-    sed -i '58s/^/#/' /etc/ssh/sshd_config # Disable PasswordAuthentication
+    sed -i '58s/.*/PasswordAuthentication no/' /etc/ssh/sshd_config # Set PasswordAuthentication to no
     systemctl restart sshd
-    printf "SSH Passwd auth. disabled and restarted!\n"
+    printf "SSH Password authentication disabled and restarted!\n"
 }
 
 # Function to configure UFW firewall
 configure_ufw() {
     printf "Configuring UFW...\n"
-    ufw delete 2 && printf "UFW rule 2 for IPv6 deleted\n"
-    ufw allow from $WORKSTATION_PUBLIC_IP to any port 22 && printf "UFW rule added for workstation IP\n"
+    
+    # Delete all existing UFW rules allowing SSH (port 22)
+    ufw reset && printf "All UFW rules have been deleted\n" # Reset UFW to delete all rules
+    
+    # Allow SSH from the specified workstation IP
+    ufw allow from $WORKSTATION_PUBLIC_IP to any port 22 && printf "UFW rule added for workstation IP\n" # Allow SSH from workstation IP
+    
+    # Allow WireGuard client IP for port 12345
+    # ufw allow from 10.10.10.2/32 to any port 12345 proto udp && printf "UFW rule added for WireGuard client IP\n" # Allow WireGuard client IP for port 12345
+    
+    # Display UFW status
     ufw status | grep -i "active" --color=auto
 }
 
@@ -44,10 +54,6 @@ install_wireguard() {
     PUB_C1=$(echo "$PRIV_C1" | wg pubkey)
 
     printf "WireGuard installed and keys generated!\n"
-    printf "Server Private Key: %s\n" "$PRIV_SERVER"
-    printf "Server Public Key: %s\n" "$PUB_SERVER"
-    printf "Client Private Key: %s\n" "$PRIV_C1"
-    printf "Client Public Key: %s\n" "$PUB_C1"
 }
 
 # Function to get network interface for internet
@@ -92,6 +98,28 @@ main() {
     get_network_interface
     configure_wireguard
     start_wireguard
+}
+# Main function to run the script
+main() {
+    configure_ssh
+    configure_ufw
+    install_wireguard
+    get_network_interface
+    configure_wireguard
+    start_wireguard
+
+    # Print WireGuard configuration for user
+    printf "\n\033[1;32m" # Set text color to green
+    printf "[Interface]\n"
+    printf "PrivateKey = %s\n" "$PRIV_C1"
+    printf "Address = 10.10.10.2/32\n"
+    printf "DNS = 1.1.1.1, 8.8.8.8\n\n"
+    printf "[Peer]\n"
+    printf "PublicKey = %s\n" "$PUB_SERVER"
+    printf "AllowedIPs = 0.0.0.0/0\n"
+    printf "Endpoint = SERVER_PUBLIC_IP:12345\n"
+    printf "PersistentKeepalive = 25\n"
+    printf "\033[0m" # Reset text color
 }
 
 main
