@@ -6,7 +6,7 @@ This repository is your go-to resource for automating setups. Whether you're a b
 
 - **Linux Simple HTTP Server (Simple_HTTP_SRV)**: Explore the Simple HTTP Server project, designed to simplify the process of hosting web content. With just a few commands, you can launch a lightweight HTTP server, making it effortless to share files, host web pages, or test websites locally. 🌐
 
-- **Safe VPN Server**: WireGuard VPN Auto-Setup for Ubuntu 20.04. It automates the deployment of a secure VPN server on Ubuntu 20.04. With a few simple commands, you can quickly set up a WireGuard VPN, ensuring fast and reliable connections for your devices. Ideal for OSINT activities and secure remote access, this script streamlines the entire process, making it accessible for users of all skill levels. 🌐🔒
+- **Safe VPN Server**: WireGuard VPN Auto-Setup for Ubuntu 20.04. It automates the deployment of a secure VPN server on Ubuntu 20.04. With a few simple commands, you can quickly set up a WireGuard VPN, ensuring fast and reliable connections for your devices. Ideal for OSINT activities and secure remote access, this script streamlines the entire process, making it accessible for users of all skill levels. 🔒
 
 - **Site Pinger**: The Site Pinger script allows you to ping multiple URLs at specified intervals, simulating real user behavior. With color-coded HTTP response codes, it helps you quickly assess the status of your web applications. Perfect for monitoring uptime and performance! 📡
 
