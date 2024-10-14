@@ -4,8 +4,10 @@
 # Assumes connecting with Windows 11 client
 
 # Prompt user for the workstation's public IP
+printf "\033[1;33m" 
 read -rp "Please enter the Workstation's Public IP: " WORKSTATION_PUBLIC_IP
 read -rp "Please enter the Server's Public IP: " SERVER_PUBLIC_IP
+printf "\033[0m" 
 
 # Define global variables for the script
 PRIV_SERVER=""
@@ -16,15 +18,15 @@ INTERFACE=""
 
 # Function to configure SSH settings
 configure_ssh() {
-    printf "Configuring SSH...\n"
+    printf "\033[1;34mConfiguring SSH...\n\033[0m" 
     sed -i '58s/.*/PasswordAuthentication no/' /etc/ssh/sshd_config # Set PasswordAuthentication to no
     systemctl restart sshd
-    printf "SSH Password authentication disabled and restarted!\n"
+    printf "\033[1;34mSSH Password authentication disabled and restarted!\n\033[0m" 
 }
 
 # Function to configure UFW firewall
 configure_ufw() {
-    printf "Configuring UFW...\n"
+    printf "\033[1;31mConfiguring UFW...\n\033[0m" 
     
     # Delete all existing UFW rules allowing SSH (port 22)
     ufw reset && printf "All UFW rules have been deleted\n" # Reset UFW to delete all rules
@@ -33,15 +35,18 @@ configure_ufw() {
     ufw allow from $WORKSTATION_PUBLIC_IP to any port 22 && printf "UFW rule added for workstation IP\n" # Allow SSH from workstation IP
     
     # Allow WireGuard client IP for port 12345
-    # ufw allow from 10.10.10.2/32 to any port 12345 proto udp && printf "UFW rule added for WireGuard client IP\n" # Allow WireGuard client IP for port 12345
-    
+    ufw allow from 10.10.10.2/32 to any port 12345 proto udp && printf "UFW rule added for WireGuard client IP\n" # Allow WireGuard client IP for port 12345
+
+    # Enable UFW if it's not already enabled
+    ufw enable && printf "UFW has been enabled\n" 
+   
     # Display UFW status
     ufw status | grep -i "active" --color=auto
 }
 
 # Function to install WireGuard and generate keys
 install_wireguard() {
-    printf "Installing WireGuard...\n"
+    printf "\033[1;31mInstalling WireGuard...\n\033[0m"
     apt update
     apt install wireguard-tools -y
     umask 077
@@ -53,12 +58,12 @@ install_wireguard() {
     PRIV_C1=$(wg genkey | tee priv_c1)
     PUB_C1=$(echo "$PRIV_C1" | wg pubkey)
 
-    printf "WireGuard installed and keys generated!\n"
+    printf "\033[1;31mWireGuard installed and keys generated!\n\033[0m"
 }
 
 # Function to get network interface for internet
 get_network_interface() {
-    printf "Getting network interface...\n"
+    printf "\033[1;34mGetting network interface...\n\33[0m"
     INTERFACE=$(ip a | grep -E "^[0-9]+:" | grep -v "lo" | awk -F': ' '{print $2}' | head -n 1)
     printf "Detected Interface: %s\n" "$INTERFACE"
 }
@@ -83,22 +88,13 @@ EOF
 
 # Function to start WireGuard
 start_wireguard() {
-    printf "Starting WireGuard...\n"
+    printf "\033[1;34 Starting WireGuard...\n\33[0m"
     wg-quick up wg1
     ip a | grep wg1 --color=auto
     ufw status | grep -i "active" --color=auto
-    printf "WireGuard started!\n"
+    printf "\033[1;34WireGuard started!\n\33[0m"
 }
 
-# Main function to run the script
-main() {
-    configure_ssh
-    configure_ufw
-    install_wireguard
-    get_network_interface
-    configure_wireguard
-    start_wireguard
-}
 # Main function to run the script
 main() {
     configure_ssh
@@ -109,6 +105,7 @@ main() {
     start_wireguard
 
     # Print WireGuard configuration for user
+    printf "\033[38;5;208mCopy below configuration to your WireGuard Client and run VPN\033[0m"
     printf "\n\033[1;32m" # Set text color to green
     printf "[Interface]\n"
     printf "PrivateKey = %s\n" "$PRIV_C1"
