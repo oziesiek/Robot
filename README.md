@@ -8,6 +8,9 @@ This repository is your go-to resource for automating setups. Whether you're a b
 
 - **Site Pinger**: The Site Pinger script allows you to ping multiple URLs at specified intervals, simulating real user behavior. With color-coded HTTP response codes, it helps you quickly assess the status of your web applications. Perfect for monitoring uptime and performance! 📡
 
+- **Ubuntu Hardening**: The Ubuntu Hardening project focuses on enhancing the security of Ubuntu systems through best practices and configuration adjustments. It aims to protect your server from vulnerabilities and ensure a robust environment. 🛡️
+
+
 ---
 
 **Disclaimer**: Please note that while this repository aims to simplify server setups and enhance security, it's essential to follow best practices and customize configurations based on your specific use case. Always ensure your server and applications are up-to-date with the latest security patches and follow AWS security guidelines.
