@@ -1,6 +1,6 @@
 # Shadowsocks Proxy Server Setup
 
-![Shadowsocks Logo](https://camo.githubusercontent.com/e147f8c2377335066df0b7cc791b55ebda8d442a3e549f14a04bbea406f4fd68/68747470733a2f2f73742e6f766572636c6f636b6572732e72752f6c65676163792f626c6f672f33343334322f3134373736385f4f2e6a7067)
+<img src="https://camo.githubusercontent.com/e147f8c2377335066df0b7cc791b55ebda8d442a3e549f14a04bbea406f4fd68/68747470733a2f2f73742e6f766572636c6f636b6572732e72752f6c65676163792f626c6f672f33343334322f3134373736385f4f2e6a7067" height="300">
 
 Welcome to the Shadowsocks Proxy Server Setup repository! This project provides a streamlined way to set up a Shadowsocks proxy server on your machine, ensuring secure and private internet browsing.
 
