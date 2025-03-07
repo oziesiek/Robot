@@ -1,6 +1,6 @@
 # Shadowsocks Proxy Server Setup
 
-![Shadowsocks Logo](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Funixhostpro%2Fshadowsocks-simple-install&psig=AOvVaw1OoCWlgwjrxjwxOclQMIIh&ust=1741427572840000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNjr7bTZ94sDFQAAAAAdAAAAABAE)
+![Shadowsocks Logo](https://camo.githubusercontent.com/e147f8c2377335066df0b7cc791b55ebda8d442a3e549f14a04bbea406f4fd68/68747470733a2f2f73742e6f766572636c6f636b6572732e72752f6c65676163792f626c6f672f33343334322f3134373736385f4f2e6a7067)
 
 Welcome to the Shadowsocks Proxy Server Setup repository! This project provides a streamlined way to set up a Shadowsocks proxy server on your machine, ensuring secure and private internet browsing.
 
