@@ -1,4 +1,4 @@
-# Welcome to the Automation Repository! 🎉
+# Welcome to the Automation Repository
 
 This repository is your go-to resource for automating setups. Whether you're a beginner or an experienced system administrator, these scripts and guides will streamline your deployment process and enhance your security.
 
@@ -18,5 +18,3 @@ This repository is your go-to resource for automating setups. Whether you're a b
 **Disclaimer**: Please note that while this repository aims to simplify server setups and enhance security, it's essential to follow best practices and customize configurations based on your specific use case. Always ensure your server and applications are up-to-date with the latest security patches and follow AWS security guidelines.
 
 If you encounter any issues or have questions related to Linux server automation, feel free to open an issue in this repository.
-
-Happy automating! 🚀
